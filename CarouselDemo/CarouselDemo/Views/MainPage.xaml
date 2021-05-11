@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctrl="clr-namespace:CarouselDemo.Custom"
+             x:Class="CarouselDemo.Views.MainPage"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <CarouselView 
+            x:Name="carousel"
+            ItemsSource="{Binding Emails}" 
+            Loop="False"
+            IsBounceEnabled="False"
+            HorizontalScrollBarVisibility="Never"
+            CurrentItemChanged="carousel_CurrentItemChanged">
+
+            <CarouselView.ItemsLayout>
+                <LinearItemsLayout 
+                    Orientation="Horizontal"
+                    SnapPointsType="MandatorySingle"
+                    SnapPointsAlignment="End" />
+            </CarouselView.ItemsLayout>
+
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <ScrollView VerticalOptions="FillAndExpand">
+                            <StackLayout VerticalOptions="FillAndExpand">
+                                <Label Text="{Binding Subject}" FontSize="Large" Margin="5,0,5,10"/>
+                                <ctrl:CustomWebView x:Name="webView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <WebView.Source>
+                                        <HtmlWebViewSource Html="{Binding Html}" />
+                                    </WebView.Source>
+                                </ctrl:CustomWebView>
+                            </StackLayout>
+                        </ScrollView>
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+    </ContentPage.Content>
+
+</ContentPage>
